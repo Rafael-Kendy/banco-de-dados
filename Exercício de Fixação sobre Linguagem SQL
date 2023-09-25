@@ -1,0 +1,28 @@
+--1) Listar todos os  médicos da tabelas médicos, com todos os dados (todas as colunas da tabela devem ser exibidas);
+select * from medicos
+
+--2)   Listar somente o Nome e especialidade de todos os médicos da tabela Médicos.
+select nome, especialidade from medicos;
+
+--3) Buscar o CPF e nome de médicos com idade = 51 anos
+select CPF, nome from medicos where idade=51
+
+--4) Buscar o CPF e nome de médicos com idade = 40 ou idade = 51 anos.
+select CPF, nome from medicos where idade=40 or idade=51
+
+--5) Buscar o CPF e nome de médicos com idade = 40 e nome diferente de Alex.
+select CPF, nome from medicos where idade=40 and nome!='Alex'
+
+--6) Buscar o Nome e CPF dos médicos com especialidade = ortopedia e idade > 15 anos.
+select nome, CPF from medicos where especialidade='ortopedia' and idade>15
+
+--7)   Buscar o nome e a idade dos pacientes que não residem em Biguacu
+select nome, idade from pacientes where cidade!='Biguacu'
+
+--8)  Buscar cidade, nome e especialidade de todos os médicos com cidade diferente de Florianopolis e com especialidade = ortopedia
+select cidade, nome, especialidade from medicos where cidade!='Florianopolis' and especialidade='ortopedia'
+
+--9)  Buscar cidade, nome e especialidade de todos os médicos com cidade diferente de Florianopolis ou com especialidade = ortopedia
+
+--10)  Buscar o nome e a idade dos pacientes que tem idade maior que 27 e menor que 50 anos (tabela pacientes)
+select nome, idade from pacientes where idade>27 and idade<50
