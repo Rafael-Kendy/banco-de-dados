@@ -1,0 +1,29 @@
+create table estudante(ra int, nome varchar(50));
+create table disciplina(cod int, nome varchar(50), periodo int);
+
+insert into estudante values(1234, 'Joaozim');
+insert into estudante values(5678, 'Zezim');
+select * from estudante;
+
+insert into disciplina values(1, 'Calculo 1', 1);
+insert into disciplina values(2, 'Fisica 2', 3);
+select * from disciplina;
+
+--index unico (p/chave prim)
+create unique index idx_pk_est on estudante(ra);
+--index secundario
+create index idx_nome on estudante(nome);
+
+create table log_est(dia int, mes int, ano int);
+
+delimiter $
+create trigger tr_inserir_est
+	after insert on estudante
+	for each row
+	begin
+		insert into log_est(dia,mes,ano) values(new.dia, new.mes, new.ano);
+	end$
+	
+delimiter ;
+
+select * from pg_tables where tablename='estudante';
