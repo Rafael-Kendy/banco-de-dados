@@ -27,3 +27,59 @@ create trigger tr_inserir_est
 delimiter ;
 
 select * from pg_tables where tablename='estudante';
+
+---------------------------------------------------------------------------------------
+--1.
+create table estudantes(ra int, nome varchar(20));
+create table materias(cod int, nome varchar(20));
+
+insert into estudantes values(123, 'Zezim');
+insert into estudantes values(456, 'Joaozim');
+select * from estudantes;
+
+insert into materias values(1, 'Fisica 1');
+insert into materias values(2, 'Calculo 1');
+select * from materias;
+
+--2.
+--index unico (p/chave prim)
+create unique index idx_pk_est on estudantes(ra);
+--index secundario
+create index idx_nome on estudantes(nome);
+
+create table log_est(dia int, mes int, ano int);
+
+--3.
+--cria a funçao
+create or replace function inserir_log_est()
+return trigger 
+as $$
+begin
+	insert into log_est(dia, mes, ano)
+	values(extract(day from new,data_insercao),EXTRACT(MONTH FROM NEW.data_insercao), EXTRACT(YEAR FROM NEW.data_insercao));
+	return new;
+end;
+$$ language plpgsql;
+
+--faz a funçao ser acionada
+create trigger tr_log_est
+after insert on estudantes
+for each row
+execute function inserir_log_est();
+
+--4.
+select table_name, table_type from information_schema.tables
+where table_schema = 'public';
+
+--5.
+select indexname, tablename, indexdef from pg_indexes 
+where tablename in (select relname from pg_stat_user_indexes);
+
+--6.
+select usename as "postgres" from pg_user;
+
+--7.
+select trigger_name, event_object_table, action_timing, event_manipulation
+from information_schema.triggers
+where trigger_schema = 'public';
+
