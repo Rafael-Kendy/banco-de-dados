@@ -1,0 +1,17 @@
+Create table livro (
+ id_livro number(5) NOT NULL,
+ titulo varchar2(150) NOT NULL,
+ autor varchar2(150) NOT NULL
+, CONSTRAINT "PK_ID_LIVRO" primary key (id_livro) );
+
+Create table emprestimo (
+ id_emp number(5) NOT NULL,
+ id_livro number(5) NOT NULL,
+ id_aluno number(5) NOT NULL,
+ CONSTRAINT "PK_ID_EMP" primary key (id_emp) );
+ 
+ Create table alunos (
+ matricula number(5) NOT NULL,
+nome_aluno varchar2(150) NOT NULL ,
+ curso_aluno varchar2(150) NOT NULL ,
+ CONSTRAINT "PK_ID_ALUNO" primary key (matricula) );
