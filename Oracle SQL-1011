@@ -1,17 +1,52 @@
 Create table livro (
- id_livro number(5) NOT NULL,
- titulo varchar2(150) NOT NULL,
- autor varchar2(150) NOT NULL
+ id_livro number(5),
+ titulo varchar2(50),
+ autor varchar2(50)
 , CONSTRAINT "PK_ID_LIVRO" primary key (id_livro) );
 
 Create table emprestimo (
- id_emp number(5) NOT NULL,
- id_livro number(5) NOT NULL,
- id_aluno number(5) NOT NULL,
+ id_emp number(5),
+ id_livro number(5),
+ id_aluno number(5),
  CONSTRAINT "PK_ID_EMP" primary key (id_emp) );
  
  Create table alunos (
- matricula number(5) NOT NULL,
-nome_aluno varchar2(150) NOT NULL ,
- curso_aluno varchar2(150) NOT NULL ,
+ matricula number(5),
+nome_aluno varchar2(50),
+ curso_aluno varchar2(50),
  CONSTRAINT "PK_ID_ALUNO" primary key (matricula) );
+ 
+SET AUTOCOMMIT OFF
+ 
+insert into alunos values (1, 'Sebastiao', 'contabilidade');
+insert into alunos values (2, 'Teobaldo', 'matematica');
+insert into alunos values (3, 'John', 'letras');
+Commit ;
+select nome_aluno from alunos;
+
+insert into alunos values (4, 'Mariazinha', 'Medicina');
+commit; 
+
+insert into alunos values (5, 'Wilson', 'Engenharia civil');
+rollback;
+
+COMMIT;
+SET TRANSACTION READ ONLY;
+update alunos set nome_aluno = 'Alexandro' where matricula =3;
+select * from alunos;
+commit;
+
+COMMIT;
+SET TRANSACTION READ WRITE
+update alunos set nome_aluno = 'Alexandra' where matricula =3;
+insert into alunos values (30, 'Faimara', 'Ciencias Sociais');
+select * from alunos;
+
+commit;
+SET TRANSACTION READ WRITE
+
+select * from alunos;
+
+commit;
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+select * from alunos;
